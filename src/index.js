@@ -1,16 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import Pads from './Components/Drumpad'
+import Tempo from './Components/Tempo'
+import './styles.css'
 
-import "./styles.css";
-
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
+    <div className="container">
+      <div className="App" id="drum-machine">
+        <h1>freeCodeCamp Drum-Machine</h1>
+        <div id="display" className="display">
+          <Pads />
+        </div>
+      </div>
+      <Tempo />
     </div>
-  );
+  )
 }
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
