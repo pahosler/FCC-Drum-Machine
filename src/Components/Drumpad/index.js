@@ -1,61 +1,72 @@
 import React, { Component } from 'react'
-import Drumpad from './drumpad'
+import Drumpad from './Drumpad'
 import '../../styles.css'
 
+// document.getElementById("drum-machine")
+// .addEventListener('keyup', (e) => {
+//   console.log(e)
+// })
+// window.addEventListener("keydown", function (e) {
+//     console.log(e.key)
+
+// });
 const noise = {
-  q: '../src/assets/909clap.wav',
-  w: '../src/assets/909ohh.wav',
-  e: '../src/assets/909sn.wav',
-  a: '../src/assets/fx_09.wav',
-  s: '../src/assets/fx_10.wav',
-  d: '../src/assets/sim_bass_23_01.wav',
-  z: '../src/assets/sim_k02-0.wav',
-  x: '../src/assets/rhythm77_bd.wav',
-  c: '../src/assets/rhythm77_ch.wav'
+  Q: [require('../../assets/909clap.wav'), 'Techno 909clap'],
+  W: [require('../../assets/909ohh.wav'), 'Techno 909ohh'],
+  E: [require('../../assets/909sn.wav'), 'Techno 909sn'],
+  A: [require('../../assets/fx_09.wav'), 'Techno fx_09'],
+  S: [require('../../assets/fx_10.wav'), 'Techno fx_10'],
+  D: [require('../../assets/sim_bass_23_01.wav'), 'Techno sim_bass_23_01'],
+  Z: [require('../../assets/sim_k02-0.wav'), 'Techno sim_k02'],
+  X: [require('../../assets/rhythm77_bd.wav'), 'Techno rhythm77_bd'],
+  C: [require('../../assets/rhythm77_ch.wav'), 'Techno rhythm77_ch']
 }
 const pads = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
+// const [q,w,e,a,s,d,z,x,c] = [...pads]
 
 export default class Pads extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      pad: 'q',
+      pad: '',
       note: null,
+      noteName: ' ',
       keyDown: false
     }
-    this.handlePadDown = this.handlePadDown.bind(this)
-    this.handlePadUp = this.handlePadUp.bind(this)
+
+    this.handlePad = this.handlePad.bind(this)
   }
 
-  handlePadDown(e) {
-    console.log(e.target.id)
-    let note = noise[e.target.id]
-    this.setState({ note })
+  handlePad(e) {
+    // console.log(e.target.id)
+    let playNote = e // .target.id.toUpperCase()
+    let note = noise[playNote][0]
+    let noteName = noise[playNote][1]
+    this.setState({ note, noteName })
   }
 
-  handlePadUp() {}
-
-  componentWillMount() {
-    console.log('hi', this.state.note)
+  componentDidMount() {
+    let noteName = window.addEventListener('keyup', function(e) {
+      return e.key.toUpperCase()
+    })
+    this.setState({ noteName })
   }
 
   render() {
-    console.log(this.state.note)
     return (
       <div className="container">
-        {pads.map((padName, i) => (
-          <Drumpad
-            key={i}
-            id={padName.toLowerCase()}
-            padName={padName}
-            handlePadDown={this.handlePadDown}
-            note={this.state.note}
-            noise={noise}
-          />
-        ))}
-        <audio id="myAudio">
-          <source src={this.state.noise} type="audio/wav" />
-        </audio>
+        <div className="pads">
+          {pads.map((padName, i) => (
+            <Drumpad
+              key={i}
+              padName={padName}
+              handlePad={this.handlePad}
+              note={this.state.note}
+              noise={noise}
+            />
+          ))}
+        </div>
+        <h3 className="soundname">{this.state.noteName}</h3>
       </div>
     )
   }

@@ -1,26 +1,43 @@
 body {
   background-color: #515151;
 }
+
 .container {
   width: 100vw;
-  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.App {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  /* text-align: cente; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
 
-.App {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  text-align: center;
-}
-
 .display {
+  /* width: 300px; */
   display: flex;
-  /* flex-wrap: wrap; */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 10px;
+}
+
+.pads {
+  max-width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .drum-pad {
@@ -41,17 +58,21 @@ body {
   font-size: 2.5em;
 }
 
-.drum-pad:hover {
+.drum-pad:active {
   background-color: #55c9ffa4;
   border: 1px solid skyblue;
   box-shadow: 0px 0px 5px 3px rgb(125, 210, 236);
   color: rgb(0, 0, 255, 0.2);
 }
 
+.soundname {
+  height: 10px;
+}
+
 .tempo-container {
-  /* width: 20%; */
+  width: 150px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -70,8 +91,4 @@ body {
   padding: 5px;
   background-color: white;
   border-radius: 5px;
-}
-
-#testing {
-  z-index: 9999;
 }
