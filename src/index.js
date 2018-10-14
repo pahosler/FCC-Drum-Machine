@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Pads from './Components/Drumpad'
-import Tempo from './Components/Tempo'
 import './styles.css'
 
 const App = () => {

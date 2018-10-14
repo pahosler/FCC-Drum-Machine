@@ -2,24 +2,17 @@ import React, { Component } from 'react'
 import Drumpad from './Drumpad'
 import '../../styles.css'
 
-// document.getElementById("drum-machine")
-// .addEventListener('keyup', (e) => {
-//   console.log(e)
-// })
-// window.addEventListener("keydown", function (e) {
-//     console.log(e.key)
-
-// });
 const noise = {
-  Q: [require('../../assets/909clap.wav'), 'Techno 909clap'],
-  W: [require('../../assets/909ohh.wav'), 'Techno 909ohh'],
-  E: [require('../../assets/909sn.wav'), 'Techno 909sn'],
-  A: [require('../../assets/fx_09.wav'), 'Techno fx_09'],
-  S: [require('../../assets/fx_10.wav'), 'Techno fx_10'],
-  D: [require('../../assets/sim_bass_23_01.wav'), 'Techno sim_bass_23_01'],
-  Z: [require('../../assets/sim_k02-0.wav'), 'Techno sim_k02'],
-  X: [require('../../assets/rhythm77_bd.wav'), 'Techno rhythm77_bd'],
-  C: [require('../../assets/rhythm77_ch.wav'), 'Techno rhythm77_ch']
+  //  Q: ['https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3','Cord_1'],
+  Q: [require('../../assets/laser5.mp3'), 'Laser 5'],
+  W: [require('../../assets/laser1.mp3'), 'Laser 1'],
+  E: [require('../../assets/spaceTrash2.mp3'), 'Space Trash 2'],
+  A: [require('../../assets/laser3.mp3'), 'Laser 3'],
+  S: [require('../../assets/laser4.mp3'), 'Laser 4'],
+  D: [require('../../assets/laser6.mp3'), 'Laser 6'],
+  Z: [require('../../assets/laser7.mp3'), 'Laser 7'],
+  X: [require('../../assets/threeTone1.mp3'), 'Three Tone One'],
+  C: [require('../../assets/lowRandom.mp3'), 'Low Random']
 }
 const pads = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
 // const [q,w,e,a,s,d,z,x,c] = [...pads]
@@ -35,6 +28,7 @@ export default class Pads extends Component {
     }
 
     this.handlePad = this.handlePad.bind(this)
+    // this.handleKeydown = this.handleKeydown.bind(this)
   }
 
   handlePad(e) {
@@ -43,13 +37,6 @@ export default class Pads extends Component {
     let note = noise[playNote][0]
     let noteName = noise[playNote][1]
     this.setState({ note, noteName })
-  }
-
-  componentDidMount() {
-    let noteName = window.addEventListener('keyup', function(e) {
-      return e.key.toUpperCase()
-    })
-    this.setState({ noteName })
   }
 
   render() {
@@ -61,8 +48,10 @@ export default class Pads extends Component {
               key={i}
               padName={padName}
               handlePad={this.handlePad}
-              note={this.state.note}
+              handleKeydown={this.handleKeydown}
               noise={noise}
+              pads={pads}
+              note={this.state.note}
             />
           ))}
         </div>
