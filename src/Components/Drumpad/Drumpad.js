@@ -5,37 +5,43 @@ export default class Drumpad extends Component {
   constructor(props) {
     super(props)
     this.audioRef = React.createRef()
-    this.handleClick = this.handleClick.bind(this)
-    this.handleKeyup = this.handleKeyup.bind(this)
+    this.mouseDown = this.mouseDown.bind(this)
   }
 
-  handleClick(e) {
-    this.audioRef.current.play()
-    this.props.handlePad(e.target.id)
+  mouseDown(e) {
+    document.getElementById(this.props.padName).play()
+    this.props.handlePad(e.target.id.toUpperCase())
   }
-  handleKeyup(e) {
-    this.audioRef.current.play()
-    this.props.handlePad(e)
-    console.log('--->', e)
+  componentDidMount() {
+    document.addEventListener(
+      'keydown',
+      function (e) {
+        let note = this.props.pads.includes(e.key.toUpperCase())
+          ? e.key.toUpperCase()
+          : 'A'
+        document.getElementById(note).play()
+        // this.props.handlePad(note)
+      }.bind(this)
+    )
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keyup', e => {
+      // this.
+    })
   }
 
   render() {
     return (
       <div
-        id={this.props.padName}
+        id={`${this.props.padName.toLowerCase()}`}
         className="drum-pad"
-        onClick={this.handleClick}
-        onKeyUp={this.handleKeyup}>
+        onMouseDown={this.mouseDown}>
         <audio
           src={this.props.noise[this.props.padName][0]}
           id={this.props.padName}
           className="clip"
-          ref={this.audioRef}>
-          <source
-            src={this.props.noise[this.props.padName][0]}
-            type="audio/wav"
-          />
-        </audio>
+        />
         {this.props.padName}
       </div>
     )
